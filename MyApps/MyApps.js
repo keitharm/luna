@@ -1,8 +1,6 @@
-'use strict';
-
-var React = require('react-native');
-var Palette = require('../styles/Palette.js');
-var {
+const React = require('react-native');
+const Palette = require('../styles/Palette.js');
+const {
   View,
   ListView,
   Text,
@@ -11,9 +9,9 @@ var {
 } = React;
 
 class MyApps extends React.Component {
-  constructor(props) {
-    super(props);
-    var ds = new ListView.DataSource({
+  constructor() {
+    super();
+    const ds = new ListView.DataSource({
       rowHasChanged: (row1, row2) => row1 !== row2,
     });
 
@@ -72,8 +70,8 @@ class MyApps extends React.Component {
 
   fetchData() {
     setTimeout(() => {
-      var iconLink = 'http://icons.iconarchive.com/icons/igh0zt/ios7-style-metro-ui/512/MetroUI-Apps-Mac-App-Store-icon.png';
-      var apps = [
+      const iconLink = 'http://icons.iconarchive.com/icons/igh0zt/ios7-style-metro-ui/512/MetroUI-Apps-Mac-App-Store-icon.png';
+      const apps = [
         {
           name: 'OPTC Timer',
           icon: iconLink,
@@ -95,7 +93,7 @@ class MyApps extends React.Component {
           icon: iconLink,
         },
       ];
-      var dataSource = this.state.dataSource.cloneWithRows(apps);
+      const dataSource = this.state.dataSource.cloneWithRows(apps);
       this.setState({
         dataSource: dataSource,
         loaded: true,
@@ -106,7 +104,7 @@ class MyApps extends React.Component {
 
 }
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',

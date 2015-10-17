@@ -1,9 +1,8 @@
-'use strict';
-
-var React = require('react-native');
-var MyApps = require('../MyApps/MyApps')
-var Palette = require('../styles/Palette');
-var {
+const React = require('react-native');
+const MyApps = require('../MyApps/MyApps')
+const Palette = require('../styles/Palette');
+const Settings = require('../Settings/Settings');
+const {
   TabBarIOS,
   Text,
   View,
@@ -35,6 +34,14 @@ class Navigator extends React.Component {
           this.changeTab('bookmarks');
         }}>
           <MyApps />
+        </TabBarIOS.Item>
+        <TabBarIOS.Item
+        systemIcon='more'
+        selected={this.state.selectedTab === 'settings'}
+        onPress = {() => {
+          this.changeTab('settings');
+        }}>
+          <Settings />
         </TabBarIOS.Item>
       </TabBarIOS>
     )
