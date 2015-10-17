@@ -16,7 +16,7 @@ class Navigator extends React.Component {
       selectedTab: 'home',
     }
   }
-  
+
   render() {
     return (
       <TabBarIOS selectedTab={this.state.selectedTab}>
@@ -34,7 +34,7 @@ class Navigator extends React.Component {
         onPress = {() => {
           this.changeTab('bookmarks');
         }}>
-          <Text>BOOKMAAAAAAAAAAAAARKS</Text>
+          <MyApps />
         </TabBarIOS.Item>
       </TabBarIOS>
     )

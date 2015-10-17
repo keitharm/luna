@@ -11,16 +11,29 @@ var {
 } = React;
 
 class MyApps extends React.Component {
+  constructor(props) {
+    super(props);
+    var ds = new ListView.DataSource({
+      rowHasChanged: (row1, row2) => row1 !== row2,
+    });
+
+    this.state = {
+      dataSource: ds,
+      loaded: false,
+    };
+
+  }
+
   render() {
     if (!this.state.loaded)
       return this.renderLoadingView();
-    
+
     return (
-      <ListView>
-        datSource={this.state.dataSource}
+      <ListView
+        dataSource={this.state.dataSource}
         renderRow={this.renderApp}
         style={styles.listView}
-      </ListView>
+      />
     );
   }
 
@@ -82,24 +95,15 @@ class MyApps extends React.Component {
           icon: iconLink,
         },
       ];
-      var ds = this.state.dataSource.cloneWithRows(apps);
+      var dataSource = this.state.dataSource.cloneWithRows(apps);
       this.setState({
-        dataSource: ds,
+        dataSource: dataSource,
         loaded: true,
-      })
+      });
+
     }, 500);
   }
 
-  getInitialState() {
-    var ds = new ListView.DataSource({
-      rowHasChanged: (row1, row2) => row1 !== row2,
-    });
-
-    return {
-      dataSource: ds,
-      loaded: false,
-    };
-  }
 }
 
 var styles = StyleSheet.create({
