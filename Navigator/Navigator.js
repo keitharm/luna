@@ -9,14 +9,6 @@ var {
   View,
 } = React;
 
-console.log('oetuhoetuht');
-console.log('oetuhoetuht');
-console.log('oetuhoetuht');
-console.log('oetuhoetuht');
-console.log('oetuhoetuht');
-console.log('oetuhoetuht');
-console.log('oetuhoetuht');
-
 class Navigator extends React.Component {
   constructor() {
     super();
@@ -24,13 +16,8 @@ class Navigator extends React.Component {
       selectedTab: 'home',
     }
   }
+  
   render() {
-    console.log('-----------------------------');
-    console.log('-----------------------------');
-    console.log('-----------------------------');
-    console.log('-----------------------------');
-    console.log('-----------------------------');
-    console.log('-----------------------------');
     return (
       <TabBarIOS selectedTab={this.state.selectedTab}>
         <TabBarIOS.Item
@@ -53,12 +40,7 @@ class Navigator extends React.Component {
     )
   }
 
-  isSelected(tabName) {
-    return tabName === this.state.selectedTab;
-  }
-
   changeTab(tabName) {
-    console.log('changing tab to', tabName);
     this.setState({
       selectedTab: tabName
     });
