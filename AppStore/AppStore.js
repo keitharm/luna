@@ -1,46 +1,48 @@
 const React = require('react-native');
 const Palette = require('../styles/Palette');
+
 const {
-  View,
-  ListView,
-  Text,
-  Image,
   StyleSheet,
+  Text,
+  View,
+  TextInput,
+  ListView,
+  Image,
 } = React;
 
-class MyApps extends React.Component {
-  constructor() {
+class AppStore extends React.Component {
+  constructor(props) {
     super();
     const ds = new ListView.DataSource({
-      rowHasChanged: (row1, row2) => row1 !== row2,
+      rowHasChanged: (r1, r2) => r1 !== r2
     });
-
+    
     this.state = {
       dataSource: ds,
-      loaded: false,
-    };
-
+    }
   }
 
   render() {
-    if (!this.state.loaded)
-      return this.renderLoadingView();
-
     return (
-      <ListView
-        dataSource={this.state.dataSource}
-        renderRow={this.renderApp}
-        style={styles.listView}
-      />
-    );
-  }
+      <View>
 
-  renderLoadingView() {
-    return (
-      <View style={styles.container}>
-        <Text>
-          Loading apps...
+        <Text style={styles.header}>
+          Search for Vi Apps
         </Text>
+
+        <TextInput
+        style={{height: 40, borderColor: 'gray', borderWidth: 1, borderRadius: 3, }}
+        placeholder="Search"
+        textAlign="center"
+        onChangeText={(text) => this.fetchData()}
+        />
+
+        <ListView
+          dataSource = {this.state.dataSource}
+          renderRow={this.renderApp}
+          style={styles.listView}
+        />
+
       </View>
     );
   }
@@ -64,47 +66,29 @@ class MyApps extends React.Component {
     );
   }
 
-  componentDidMount() {
-    this.fetchData();
-  }
-
   fetchData() {
-    setTimeout(() => {
-      const iconLink = 'http://icons.iconarchive.com/icons/igh0zt/ios7-style-metro-ui/512/MetroUI-Apps-Mac-App-Store-icon.png';
-      const apps = [
-        {
-          name: 'OPTC Timer',
-          icon: iconLink,
-        },
-        {
-          name: 'Instajam',
-          icon: iconLink,
-        },
-        {
-          name: 'midiKeys',
-          icon: iconLink,
-        },
-        {
-          name: 'Stalk.io',
-          icon: iconLink,
-        },
-        {
-          name: 'Heat-out',
-          icon: iconLink,
-        },
-      ];
-      const dataSource = this.state.dataSource.cloneWithRows(apps);
-      this.setState({
-        dataSource: dataSource,
-        loaded: true,
+    fetch("https://randomapi.com/api/?key=Z5J1-1QP0-68VY-D7R1&id=794x6oa&results=25&noinfo")
+    .then((response) => response.json())
+    .then((responseData) => {
+      responseData.results.forEach(function(app) {
+        apps.push({name: app.app.name, icon: app.app.iconImage});
       });
-
-    }, 500);
+      var ds = this.state.dataSource.cloneWithRows(apps);
+      this.setState({
+        dataSource: ds,
+        loaded: true,
+      })
+    })
   }
-
+  }
 }
 
 const styles = StyleSheet.create({
+  header: {
+    marginTop: 15,
+    fontSize: 24,
+    textAlign: 'center'
+  },
   container: {
     flex: 1,
     flexDirection: 'row',
@@ -116,8 +100,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingLeft: 10,
+    paddingRight: 10,
     backgroundColor: '#FFF',
   },
   nameContainer: {
@@ -126,7 +110,6 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 20,
-    fontFamily: Palette.type,
     color: '#212121',
   },
   icon: {
@@ -139,8 +122,8 @@ const styles = StyleSheet.create({
   },
   separator: {
     height: 1,
-    backgroundColor: Palette.divider,
+    backgroundColor: '#CCC'
   },
 });
 
-module.exports = MyApps;
+module.exports = AppStore;
