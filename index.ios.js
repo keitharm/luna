@@ -1,5 +1,5 @@
 const React = require('react-native');
-const Navigator = require('./Navigator/Navigator')
+const Navigator = require('./ios/Navigator/Navigator');
 const {
   AppRegistry,
   StyleSheet,
