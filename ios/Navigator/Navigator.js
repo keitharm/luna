@@ -1,5 +1,7 @@
 const React = require('react-native');
 const MyApps = require('../MyApps/MyApps')
+const Home = require('../Home/Home');
+const AppStore = require('../AppStore/AppStore');
 const Palette = require('../styles/Palette');
 const Settings = require('../Settings/Settings');
 const {
@@ -25,15 +27,23 @@ class Navigator extends React.Component {
         onPress = {() => {
           this.changeTab('home')
         }}>
-          <Text>HOME BOYS</Text>
+          <Home />
         </TabBarIOS.Item>
         <TabBarIOS.Item
         systemIcon='bookmarks'
-        selected={this.state.selectedTab === 'bookmarks'}
+        selected={this.state.selectedTab === 'myapps'}
         onPress = {() => {
-          this.changeTab('bookmarks');
+          this.changeTab('myapps');
         }}>
           <MyApps />
+        </TabBarIOS.Item>
+        <TabBarIOS.Item
+        systemIcon='search'
+        selected={this.state.selectedTab === 'appstore'}
+        onPress = {() => {
+          this.changeTab('appstore');
+        }}>
+          <AppStore />
         </TabBarIOS.Item>
         <TabBarIOS.Item
         systemIcon='more'

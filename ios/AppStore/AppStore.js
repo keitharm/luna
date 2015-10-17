@@ -19,10 +19,21 @@ class AppStore extends React.Component {
     
     this.state = {
       dataSource: ds,
-    }
+      loaded: false,
+    };
+
+    this.renderApp = this.renderApp.bind(this);
   }
 
   render() {
+    if (!this.state.loaded) {
+      return (
+        <View>
+          <Text>Loading apps...</Text>
+        </View>
+      );
+    }
+
     return (
       <View>
 
@@ -38,7 +49,7 @@ class AppStore extends React.Component {
         />
 
         <ListView
-          dataSource = {this.state.dataSource}
+          dataSource={this.state.dataSource}
           renderRow={this.renderApp}
           style={styles.listView}
         />
@@ -66,10 +77,26 @@ class AppStore extends React.Component {
     );
   }
 
+  componentDidMount() {
+    this.fetchData();
+  }
+
   fetchData() {
     fetch("https://randomapi.com/api/?key=Z5J1-1QP0-68VY-D7R1&id=794x6oa&results=25&noinfo")
     .then((response) => response.json())
     .then((responseData) => {
+      console.log('------------');
+      console.log('------------');
+      console.log('------------');
+      console.log('------------');
+      console.log('------------');
+      console.log('------------');
+      console.log('------------');
+      console.log('------------');
+      console.log('------------');
+      console.log('------------');
+      console.log('this.state =', this.state);
+      var apps = [];
       responseData.results.forEach(function(app) {
         apps.push({name: app.app.name, icon: app.app.iconImage});
       });
@@ -77,9 +104,9 @@ class AppStore extends React.Component {
       this.setState({
         dataSource: ds,
         loaded: true,
-      })
-    })
-  }
+      });
+      console.log('this.state =', this.state);
+    });
   }
 }
 
