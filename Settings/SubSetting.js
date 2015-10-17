@@ -89,5 +89,4 @@ var styles = StyleSheet.create({
   },
 });
 
-// module.exports = SubSetting;
-export default SubSetting;
+module.exports = SubSetting;
